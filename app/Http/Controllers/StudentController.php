@@ -268,8 +268,8 @@ class StudentController extends Controller
         //find the post
         $student=Student::find($id);
 
-        $subjs=Subject::where('course_id','=',$student->course_id)->get();
-        $subjects=$subjs->pluck('name','id');       
+        $subjects=Subject::where('course_id','=',$student->course_id)->pluck('name','id');
+        //$subjects=$subjs->pluck('name','id');       
         //dd($subjects);
         //->where('course_id','=',$student->course_id);
         //return

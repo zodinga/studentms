@@ -73,4 +73,7 @@ Route::group(['middlewareGroups' => ['web']], function () {
 	Route::resource('results','ResultController');
 	Route::get('search', ['uses'=>'ResultController@search','as'=>'results.search']);
 
+	Route::get('index','ExcelController@getIndex');
+	Route::get('export',['uses'=>'ExcelController@getExport','as'=>'excel.export']);
+
 });

@@ -33,7 +33,7 @@ class PublicController extends Controller
     	
     	$student=Student::where('id','=',$id)->first();
         $student_subjects=Student_subject::where('student_id','=',$student->id)->get();
-
+        
     	return view('public.single')->withStudent($student)->with('student_subjects',$student_subjects);
     }
 

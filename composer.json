@@ -8,7 +8,9 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "laravelcollective/html":"5.2.*",
-        "intervention/image": "^2.3"
+        "intervention/image": "^2.3",
+        "maatwebsite/excel": "^2.1",
+        "dompdf/dompdf": "~0.6.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

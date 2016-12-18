@@ -81,6 +81,7 @@
 			</table>
 
 			<hr>
+			<!--
 			<div class="row">
 				<div class="col-sm-6">
 					{!! Html::linkRoute('students.edit','Edit',[$student->id],['class'=>'btn btn-primary btn-block']) !!}
@@ -90,7 +91,7 @@
 					{{Form::submit('Delete',['class'=>'btn btn-danger btn-block'])}}
 				{!! Form::close() !!}
 				</div>
-			</div>
+			</div>-->
 			<div class="row">
 				<div class="col-md-12">
 				{{Html::linkRoute('students.index','<<All Students',[],['class'=>'btn btn-default btn-block btn-h1-spacing'])}}

@@ -72,6 +72,8 @@ $courses=Course::pluck('name','id');
             <li role="separator" class="divider"></li>
             <li><a href="{{route('results.index')}}">Semester Result</a></li>
             <li role="separator" class="divider"></li>
+            <li><a href="{{URL::to('index')}}">Create Report</a></li>
+            <li role="separator" class="divider"></li>
             <li><a href="{{route('users.index')}}">Users</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="{{route('logout')}}">Logout</a></li>

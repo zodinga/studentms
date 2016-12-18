@@ -34,7 +34,7 @@
 					<th>Course</th>
 					<th>Join</th>
 					<th>Batch</th>
-					<th>Created At</th>
+					<th>Updated At</th>
 					<th>Actions</th>
 				</thead>
 				<tbody>
