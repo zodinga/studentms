@@ -28,6 +28,7 @@ class ExcelController extends Controller
                             ->withStatuses($statuses)
                             ->withCommunities($communities);
     }
+    
     public function getExport(Request $request){
 
     	$students=Student::where('id','>',0);
@@ -84,9 +85,6 @@ class ExcelController extends Controller
         $students=$students->orderBy('id','desc')->get();
 
         $courses=Course::pluck('name','id');
-
-        //$students=Student::all();
-        //dd($title);
 
         Excel::create("$title",function($excel) use($students){
         	 $excel->setTitle('Student Report');
