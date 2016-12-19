@@ -95,6 +95,7 @@ class ResultController extends Controller
         $result->grade=$request->grade;
         $result->grade_points=$request->grade_points;
         $result->gp_earned=$request->gp_earned;
+        $result->remarks=$request->remarks;
 
         $result->save();
 
@@ -164,6 +165,7 @@ class ResultController extends Controller
         $result->grade=$request->grade;
         $result->grade_points=$request->grade_points;
         $result->gp_earned=$request->gp_earned;
+        $result->remarks=$request->remarks;
 
         $result->save();
         Session::flash('success','Result edited successfully!!');

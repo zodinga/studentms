@@ -181,7 +181,7 @@ class StudentController extends Controller
         //save photo
         if($request->hasFile('photo')){
             $photo=$request->file('photo');
-            $filename=time().'.'. $photo->getClientOriginalExtension();
+            $filename=$student->id.'.'. $photo->getClientOriginalExtension();
 
             $location=public_path('images/'.$filename);
 
@@ -269,10 +269,7 @@ class StudentController extends Controller
         $student=Student::find($id);
 
         $subjects=Subject::where('course_id','=',$student->course_id)->pluck('name','id');
-        //$subjects=$subjs->pluck('name','id');       
-        //dd($subjects);
-        //->where('course_id','=',$student->course_id);
-        //return
+
         return view('students.edit')->withStudent($student)
                                     ->withCategories($categories)
                                     ->withCourses($courses)
@@ -343,7 +340,7 @@ class StudentController extends Controller
         if ($request->hasFile('photo')) {
             //add new photo
             $photo=$request->file('photo');
-            $filename=time().'.'. $photo->getClientOriginalExtension();
+            $filename=$student->id.'.'. $photo->getClientOriginalExtension();
 
             $location=public_path('images/'.$filename);
 

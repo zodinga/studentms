@@ -128,7 +128,7 @@ class SubjectController extends Controller
 
         Session::flash('success','Subject edited successfully');
 
-        return redirect()->route('subjects.show',$subject->id);
+        return redirect()->route('subjects.index',$subject->id);
 
     }
 

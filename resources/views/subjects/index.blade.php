@@ -27,7 +27,7 @@
 				@foreach($subjects as $subject)
 					<tr>
 						<td>{{$subject->id}}</td>
-						<td><a href="{{route('subjects.show',$subject->id)}}"> {{$subject->name}}</a></td>
+						<td><a href="{{route('subjects.edit',$subject->id)}}"> {{$subject->name}}</a></td>
 						<td>{{$subject->subject_code}}</td>
 						<td>{{$subject->course->name}}</td>
 						<td>{{$subject->semester}}</td>

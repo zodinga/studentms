@@ -13,9 +13,30 @@ class PagesController extends Controller{
 
 	public function getIndex(){
 		$courses=Course::pluck('name','id');
-		//$students=Student::orderBy('created_at','desc')->limit(4)->get();
+		//$students=Student::all();
+		//Student Group
+		$studentChart=array();
+		for($i=2002;$i<2016;$i++){
+		//$total=Student::where('doj','=',$i)->count();
+		$mca=0;
+		$bca=0;
+		$diploma=0;
+		$shortterm=0;
+		$mca=Student::where('doj','=',$i)->where('course_id','=',4)->count();
+		$bca=Student::where('doj','=',$i)->where('course_id','=',3)->count();
+		$dcse=Student::where('doj','=',$i)->where('course_id',5)->count();
+		$dete=Student::where('doj','=',$i)->where('course_id',6)->count();
+		$diploma=$dcse+$dete;
+		$shortterm=Student::where('doj','=',$i)->where('course_id','<>',3)
+												->where('course_id','<>',4)
+												->where('course_id','<>',5)
+												->where('course_id','<>',6)->count();
 
-		return view('pages.welcome')->withCourses($courses);
+		$studentChart[$i]=[$i,$mca,$bca,$diploma,$shortterm];
+		}
+		//dd($studentChart);
+
+		return view('pages.welcome')->withCourses($courses)->with('studentChart',$studentChart);
 									
 	}
 

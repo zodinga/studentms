@@ -116,7 +116,14 @@
 			{!! Form::close() !!}
 		</div>
 		<div class="col-md-2">
-			<img src="/img/user.jpg" height='200' width='180'>
+		{!! Form::open(['route' => 'excel.import','method'=>'post','data-parsley-validate'=>'','files'=>true]) !!}
+			{{Form::label('import','Select Excel file:')}}
+			{{Form::file('import',['class'=>'form-control'])}}
+		
+		    {{Form::submit('Import',['class'=>'btn btn-success btn-lg btn-block','style'=>'margin-top:20px'])}}
+			
+			
+		{!! Form::close() !!}
 		</div>
 	</div>
 @stop

@@ -75,5 +75,6 @@ Route::group(['middlewareGroups' => ['web']], function () {
 
 	Route::get('index','ExcelController@getIndex');
 	Route::get('export',['uses'=>'ExcelController@getExport','as'=>'excel.export']);
+	Route::post('import',['uses'=>'ExcelController@getImport','as'=>'excel.import']);
 
 });

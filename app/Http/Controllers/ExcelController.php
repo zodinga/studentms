@@ -11,6 +11,10 @@ use App\Student;
 use App\Category;
 use App\Status;
 use App\Community;
+use App\Subject;
+use App\Student_subject;
+use Illuminate\Support\Facades\Input;
+use Session;
 use Excel;
 
 class ExcelController extends Controller
@@ -28,10 +32,42 @@ class ExcelController extends Controller
                             ->withStatuses($statuses)
                             ->withCommunities($communities);
     }
+
+    public function getImport(Request $request){
+        Excel::load(Input::file('import'),function($reader){
+
+            $rd=$reader->toArray();
+            //dd($rd);
+            
+
+            $reader->each(function($sheet){
+                Student::firstOrCreate($sheet->toArray());
+            });
+
+            
+            //dd($rd);
+            foreach($rd as $stu)
+                $this->syncNew($stu);
+        });
+        Session::flash('success','Students Imported Successfully');
+        return back();
+    }
     
     public function getExport(Request $request){
 
-    	$students=Student::where('id','>',0);
+    	$students=Student::join('categories', 'students.category_id', '=', 'categories.id')
+            ->join('courses', 'students.course_id', '=', 'courses.id')
+            ->join('communities', 'students.community_id', '=', 'communities.id')
+            ->join('statuses', 'students.status_id', '=', 'statuses.id')
+			->select('students.id','students.name','students.aadhaar','students.eid','students.phone','students.email',
+				'students.inst_no','students.univ_reg_no','students.exam_roll_no','students.doj as yoj',
+				'courses.name as course','students.batch','students.fathers_me','students.mothers_me','students.parents_phone',
+				'students.guardian_me','students.guardian_phone','students.dob','students.sex','categories.name as category',
+				'communities.name as community','students.per_street','students.per_city','students.per_district','students.per_state',
+				'students.per_pin','students.pre_street','students.pre_city','students.pre_district','students.pre_state',
+				'students.pre_pin','statuses.name as status','students.status_update_date','students.photo');
+
+    	//->where('id','>',0);
     	$title="";
         if($request->has('name'))
             {
@@ -94,9 +130,41 @@ class ExcelController extends Controller
 
         	$excel->sheet('Students',function($sheet) use($students){
         		$sheet->fromArray($students);
+                $sheet->setOrientation('landscape');
+
+                $sheet->setBorder('A1:AH1', 'thin');
         	});
         })->export('xlsx');
 
         return back();
+    }
+
+    public function syncNew($stu)
+    {
+
+        $student=Student::where('name','=',$stu['name'])->whereCourse_id($stu['course_id'])->first();
+       // dd($student);
+            
+        if($student)
+        {
+            $subjects=Subject::whereCourse_id($student->course_id)->get();
+            foreach($subjects as $subject)
+            {
+                $xx=Student_subject::where('student_id',$student->id)->where('subject_id',$subject->id)->get();
+                
+                if($xx->count()==0)
+                {
+                    $student_subject=new Student_subject;
+                    $student_subject->student_id=$student->id;
+                    $student_subject->subject_id=$subject->id;
+
+                    $student_subject->timestamps=false;
+                    $student_subject->save();
+                }
+
+            }
+            
+        }    
+        
     }
 }

@@ -11,14 +11,11 @@
 
 		{{Form::hidden('student_subject_id',$student_subject_id)}}
 
-		{{Form::label('sessional','Sessional:')}}
+		{{Form::label('sessional','Sessional (Internal Marks):')}}
 		{{Form::text('sessional',null,['class'=>'form-control','data-parsley-type'=>'digits'])}}
 
-		{{Form::label('semester','Semester')}}
+		{{Form::label('semester','Semester (External Marks):')}}
 		{{Form::text('semester',null,['class'=>'form-control','data-parsley-type'=>'digits'])}}
-
-		<!--{{Form::label('total','Total:')}}
-		{{Form::text('total',null,['class'=>'form-control','data-parsley-type'=>'digits'])}}-->
 
 		{{Form::label('grade','Grade:')}}
 		{{Form::text('grade',null,['class'=>'form-control'])}}
@@ -28,6 +25,9 @@
 
 		{{Form::label('gp_earned','Grade Points Earned:')}}
 		{{Form::text('gp_earned',null,['class'=>'form-control','data-parsley-type'=>'digits'])}}
+
+		{{Form::label('remarks','Remarks:')}}
+		{{Form::text('remarks',null,['class'=>'form-control'])}}
 
 		{{Form::submit('Save',['class'=>'btn btn-primary btn-block form-spacing-top'])}}
 	{!! Form::close()!!}

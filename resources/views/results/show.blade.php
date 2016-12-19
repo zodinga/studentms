@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-9">
 	<div class="subjects">
 		
 			<table class="table">
@@ -17,6 +17,7 @@
 					<td>Grade</td>
 					<td>GP</td>	
 					<td>GP Earned</td>
+					<td>Remarks</td>
 					<td>Action</td>
 				</tr>
 			</thead>
@@ -31,6 +32,7 @@
 					<td>{{$student_subject->result['grade']}}</td>
 					<td>{{$student_subject->result['grade_points']}}</td>
 					<td>{{$student_subject->result['gp_earned']}}</td>
+					<td>{{$student_subject->result['remarks']}}</td>
 					<td><a href="{{route('results.edit',$student_subject->id)}}" class="btn btn-default">Edit</a></td>
 				</tr>
 				</tr>
@@ -41,13 +43,13 @@
 		</div>	
 		
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-3">
 		<div class="well">
 		<div class="row">
-			<img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="30%" width="20%">
+			<img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded " height="30%" width="20%">
 		</div>
 		
-		<h3>{{ $student->name }}</h3>
+		<h4>{{ $student->name }}</h4>
 
 			<table class="table">
 				<tr>
