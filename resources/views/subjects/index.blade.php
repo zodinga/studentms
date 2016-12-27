@@ -78,6 +78,26 @@
 
 					{{Form::submit('Save',['class'=>'btn btn-primary btn-block form-spacing-top'])}}
 				{!! Form::close()!!}
+
+				<hr>
+				
+				<!--Import new subjects-->
+				{!! Form::open(['route' => 'excel.importSubject','method'=>'post','data-parsley-validate'=>'','files'=>true]) !!}
+
+					{{Form::label('import','Select Excel file:')}}
+					{{Form::file('import',['accept'=>'.csv' ,'class'=>'form-control'])}}
+		
+		    		{{Form::submit('Import',['class'=>'btn btn-warning btn-block','style'=>'margin-top:20px'])}}
+
+				{!! Form::close() !!}
+				<hr>
+				<!--Export Subjects-->
+				{!!Form::open(['route'=>'excel.exportSubjects','method'=>'get'])!!}
+		      
+					{{Form::submit('Export to Excel',['class'=>'btn btn-success btn-block ','style'=>'margin-top:20px'])}}
+		         
+				{!!Form::close()!!}
+				<!--End export-->
 			</div>
 		</div>
 	</div>

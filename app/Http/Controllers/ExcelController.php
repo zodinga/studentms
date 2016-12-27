@@ -37,19 +37,50 @@ class ExcelController extends Controller
         Excel::load(Input::file('import'),function($reader){
 
             $rd=$reader->toArray();
-            //dd($rd);
-            
 
             $reader->each(function($sheet){
                 Student::firstOrCreate($sheet->toArray());
             });
 
-            
-            //dd($rd);
             foreach($rd as $stu)
                 $this->syncNew($stu);
         });
         Session::flash('success','Students Imported Successfully');
+        return back();
+    }
+
+    public function getImportSubject(Request $request){
+        Excel::load(Input::file('import'),function($reader){
+
+            $rd=$reader->toArray();
+
+            $reader->each(function($sheet){
+                Subject::firstOrCreate($sheet->toArray());
+            });
+            
+        });
+        Session::flash('success','Subjects Imported Successfully');
+        return back();
+    }
+
+    public function getExportSubjects(Request $request){
+
+        $subjects=Subject::all();
+
+        Excel::create("Subjects",function($excel) use($subjects){
+             $excel->setTitle('Subject Report');
+             $excel->setCreator('Samuel')
+              ->setCompany('NIELIT');
+
+
+            $excel->sheet('Subjects',function($sheet) use($subjects){
+                $sheet->fromArray($subjects);
+                $sheet->setOrientation('landscape');
+
+                $sheet->setBorder('A1:AH1', 'thin');
+            });
+        })->export('xlsx');
+
         return back();
     }
     

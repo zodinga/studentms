@@ -48,7 +48,7 @@ $courses=Course::pluck('name','id');
             {{Form::select('course_id', $courses ,null,['class'=>'form-control form-top input-sm','placeholder' => 'Pick a course...'])}}
               <input type="text" id="year" name="year" class="form-control form-top input-sm" placeholder="Year" style = "width:50px;">
             </div>
-            <button type="submit" class="btn btn-default form-top input-sm">Search</button>
+            <button type="submit" class="btn btn-default form-top input-sm" style="padding-top: 4px;">Search</button>
       {!!Form::close()!!}
       </li>
       @endif
