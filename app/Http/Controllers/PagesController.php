@@ -89,31 +89,78 @@ class PagesController extends Controller{
 
 		$percentage=array(round($mca),round($bca),round($diploma),round($shortterm));
 		
-		//Community
-		$christian=Student::where('community_id',1)->count();
-		$hindu=Student::where('community_id',2)->count();
-		$mushlim=Student::where('community_id',3)->count();
-		$buddhist=Student::where('community_id',5)->count();
-		$others=Student::where('community_id',4)->count();
+		
+		$community=array();
+		$category=array();
+		$status=array();
+		$tc=0;
+		$th=0;
+		$tm=0;
+		$tb=0;
+		$to=0;
 
-		$community=array($christian,$hindu,$mushlim,$buddhist,$others);
+		$tst=0;
+		$tsc=0;
+		$tobc=0;
+		$tgen=0;
 
-		//Category
-		$st=Student::where('category_id',1)->count();
-		$sc=Student::where('category_id',2)->count();
-		$obc=Student::where('category_id',3)->count();
-		$gen=Student::where('category_id',4)->count();
+		$tong=0;
+		$tcomp=0;
+		$tdrop=0;
+		$tdisc=0;
+		$tunk=0;
 
-		$category=array($st,$sc,$obc,$gen);
+		for($i=2003,$j=0;$i<date("Y");$i++,$j++)
+		{
+			//Community
+			//$students=Student::where('doj',$i);
 
-		//Status
-		$ongoing=Student::where('status_id',1)->count();
-		$completed=Student::where('status_id',2)->count();
-		$dropout=Student::where('status_id',3)->count();
-		$discontinue=Student::where('status_id',4)->count();
-		$unknown=Student::where('status_id',null)->count();
+			$christian=Student::where('doj',$i)->where('community_id',1)->count();
+			$hindu=Student::where('doj',$i)->where('community_id',2)->count();
+			$mushlim=Student::where('doj',$i)->where('community_id',3)->count();
+			$buddhist=Student::where('doj',$i)->where('community_id',5)->count();
+			$others=Student::where('doj',$i)->where('community_id',4)->count();
 
-		$status=array($ongoing,$completed,$dropout,$discontinue,$unknown);
+			$tc=$tc+$christian;
+			$th=$th+$hindu;
+			$tm=$tm+$mushlim;
+			$tb=$tb+$buddhist;
+			$to=$to+$others;
+
+			$community[$j]=array($i,$christian,$hindu,$mushlim,$buddhist,$others,$tc,$th,$tm,$tb,$to);
+
+			//Category
+			$st=Student::where('doj',$i)->where('category_id',1)->count();
+			$sc=Student::where('doj',$i)->where('category_id',2)->count();
+			$obc=Student::where('doj',$i)->where('category_id',3)->count();
+			$gen=Student::where('doj',$i)->where('category_id',4)->count();
+
+			$tst=$tst+$st;
+			$tsc=$tsc+$sc;
+			$tobc=$tobc+$obc;
+			$tgen=$tgen+$gen;
+
+			$category[$j]=array($i,$st,$sc,$obc,$gen,$tst,$tsc,$tobc,$tgen);
+
+			//Status
+			$ongoing=Student::where('doj',$i)->where('status_id',1)->count();
+			$completed=Student::where('doj',$i)->where('status_id',2)->count();
+			$dropout=Student::where('doj',$i)->where('status_id',3)->count();
+			$discontinue=Student::where('doj',$i)->where('status_id',4)->count();
+			$unknown=Student::where('doj',$i)->where('status_id',null)->count();
+
+			$tong+=$ongoing;
+			$tcomp+=$completed;
+			$tdrop+=$dropout;
+			$tdisc+=$discontinue;
+			$tunk+=$unknown;
+
+			$status[$j]=array($i,$ongoing,$completed,$dropout,$discontinue,$unknown,$tong,$tcomp,$tdrop,$tdisc,$tunk);
+		}
+
+		
+
+		
 
 		return view('pages.dashboard')
 						->withCommunity($community)

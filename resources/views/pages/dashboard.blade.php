@@ -55,21 +55,34 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Christian</th>
+                  <th>Year</th>
+                  <th>Christ</th>
                   <th>Hindu</th>
-                  <th>Mushlim</th>
-                  <th>Buddhist</th>
-                  <th>Others</th>
+                  <th>Mush</th>
+                  <th>Buddh</th>
+                  <th>Other</th>
                 </tr>
               </thead>
               <tbody>
+              @foreach($community as $comm)
                 <tr>
-                  <td>{{$community[0]}}</td>
-                  <td>{{$community[1]}}</td>
-                  <td>{{$community[2]}}</td>
-                  <td>{{$community[3]}}</td>
-                  <td>{{$community[4]}}</td>
+                  <td>{{$comm[0]}}</td>
+                  <td>{{$comm[1]}}</td>
+                  <td>{{$comm[2]}}</td>
+                  <td>{{$comm[3]}}</td>
+                  <td>{{$comm[4]}}</td>
+                  <td>{{$comm[5]}}</td>
                 </tr>
+                
+              @endforeach
+              <tr>
+                  <td><b>TOTAL</b></td>
+                  <td><b>{{$comm[6]}}</b></td>
+                  <td><b>{{$comm[7]}}</b></td>
+                  <td><b>{{$comm[8]}}</b></td>
+                  <td><b>{{$comm[9]}}</b></td>
+                  <td><b>{{$comm[10]}}</b></td>
+              </tr>
               </tbody>
             </table>
           </div>
@@ -80,6 +93,7 @@
             <table class="table table-striped">
               <thead>
                 <tr>
+                  <th>Year</th>
                   <th>ST</th>
                   <th>SC</th>
                   <th>OBC</th>
@@ -87,11 +101,21 @@
                 </tr>
               </thead>
               <tbody>
+               @foreach($category as $cat)
                 <tr>
-                  <td>{{$category[0]}}</td>
-                  <td>{{$category[1]}}</td>
-                  <td>{{$category[2]}}</td>
-                  <td>{{$category[3]}}</td>
+                  <td>{{$cat[0]}}</td>
+                  <td>{{$cat[1]}}</td>
+                  <td>{{$cat[2]}}</td>
+                  <td>{{$cat[3]}}</td>
+                  <td>{{$cat[4]}}</td>
+                </tr>
+                @endforeach
+                 <tr>
+                  <td><b>TOTAL</b></td>
+                  <td><b>{{$cat[5]}}</b></td>
+                  <td><b>{{$cat[6]}}</b></td>
+                  <td><b>{{$cat[7]}}</b></td>
+                  <td><b>{{$cat[8]}}</b></td>
                 </tr>
               </tbody>
             </table>
@@ -103,6 +127,7 @@
             <table class="table table-striped">
               <thead>
                 <tr>
+                  <th>Year</th>
                   <th>Ong</th>
                   <th>Comp</th>
                   <th>Drop</th>
@@ -111,12 +136,23 @@
                 </tr>
               </thead>
               <tbody>
+               @foreach($status as $stat)
                 <tr>
-                  <td>{{$status[0]}}</td>
-                  <td>{{$status[1]}}</td>
-                  <td>{{$status[2]}}</td>
-                  <td>{{$status[3]}}</td>
-                  <td>{{$status[4]}}</td>
+                  <td>{{$stat[0]}}</td>
+                  <td>{{$stat[1]}}</td>
+                  <td>{{$stat[2]}}</td>
+                  <td>{{$stat[3]}}</td>
+                  <td>{{$stat[4]}}</td>
+                  <td>{{$stat[5]}}</td>
+                </tr>
+                @endforeach
+                <tr>
+                  <td><b>TOTAL</b></td>
+                  <td><b>{{$stat[6]}}</b></td>
+                  <td><b>{{$stat[7]}}</b></td>
+                  <td><b>{{$stat[8]}}</b></td>
+                  <td><b>{{$stat[9]}}</b></td>
+                  <td><b>{{$stat[10]}}</b></td>
                 </tr>
               </tbody>
             </table>
