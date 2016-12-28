@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Http\Requests;
 use App\User;
+use App\Role;
 use Session;
 
 class UserController extends Controller
@@ -59,6 +60,8 @@ class UserController extends Controller
                 $user->password=Hash::make($request->password);
         
                 $user->save();
+
+                $user->roles()->attach(Role::where('name','Reception')->first());
         
                 Session::flash('success','New User Created');
         

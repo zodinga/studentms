@@ -132,10 +132,6 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        
-
-
-
         //validate
         $this->validate($request,array(
             'name'=>'required|max:50',
@@ -288,8 +284,6 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         //validate
-
-
         $student=Student::find($id);
 
             $this->validate($request,array(
@@ -357,6 +351,7 @@ class StudentController extends Controller
         $student->save();
 
         //updating student-subject relationship
+
         if(isset($request->subjects)){
             $student->subjects()->sync($request->subjects);
         }
@@ -419,6 +414,27 @@ class StudentController extends Controller
                 $result->delete();
         }
         //end delete result
+    }
+
+    public function editSubject($id){
+        $student=Student::find($id);
+
+        $subjects=Subject::where('course_id','=',$student->course_id)->pluck('name','id');
+
+        return view('students.editSubject')->withSubjects($subjects)->withStudent($student);
+    }
+
+    public function updateSubject(Request $request,$id){
+        //dd($request->subjects);
+        $student=Student::find($id);
+        if(isset($request->subjects)){
+            $student->subjects()->sync($request->subjects);
+        }
+        else{
+            $student->subjects()->sync(array());
+        }
+        Session::flash('success','Subjects updated Successfully!!');
+        return redirect()->back();
     }
 
 

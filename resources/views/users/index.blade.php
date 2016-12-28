@@ -9,7 +9,7 @@
 @section('content')
 	
 <div class="row">
-		<div class="col-md-8">
+		<div class="col-md-9">
 			<h1>Users</h1>
 			<table class="table">
 				<thead>
@@ -17,16 +17,31 @@
 						<td>#</td>
 						<td>Name</td>
 						<td>Email</td>
+						<td>Admin</td>
+						<td>Coordinator</td>
+						<td>Reception</td>
+						<td>Faculty</td>
 						<td>Action</td>
 					</tr>
 				</thead>
 				<tbody>
 				@foreach($users as $user)
 					<tr>
-						<td>{{$user->id}}</td>
+					<form action="{{ route('admin.assign') }}" method="post">
+					{{ csrf_field() }}
+						<td>{{$user->id}}<input type="hidden" name="id" value="{{ $user->id }}"></td>
 						<td>{{$user->name}}</td>
 						<td>{{$user->email}}</td>
-						<td><a href="{{route('users.edit',$user->id)}}" class="btn btn-default">Edit</a></td>
+						<td><input type="checkbox" name="role_admin" {{ $user->hasRole('Admin') ? 'checked' : '' }} ></td>
+						<td><input type="checkbox" name="role_coordinator" {{ $user->hasRole('Coordinator') ? 'checked' : '' }}></td>
+						<td><input type="checkbox" name="role_reception" {{ $user->hasRole('Reception') ? 'checked' : '' }}></td>
+						<td><input type="checkbox" name="role_faculty" {{ $user->hasRole('Faculty') ? 'checked' : '' }}></td>
+						
+						<td>
+							<button type="submit" class="btn btn-warning btn-xs">Assign Role</button>
+							<a href="{{route('users.edit',$user->id)}}" class="btn btn-info btn-xs">Edit User</a>
+						</td>
+					</form>
 					</tr>
 				@endforeach
 				</tbody>

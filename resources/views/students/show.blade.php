@@ -25,7 +25,7 @@
 	</div>
 	<div class="col-md-4">
 		<div class="well">
-		<img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="45%" width="35%">
+		<img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="45%" width="35%" style="margin-left:100px;">
 				<dl class="dl-horizontal">
 				{{ $student->name }}
 					<!--<label>Url</label>

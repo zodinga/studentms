@@ -33,7 +33,7 @@
 					<td>{{$student_subject->result['grade_points']}}</td>
 					<td>{{$student_subject->result['gp_earned']}}</td>
 					<td>{{$student_subject->result['remarks']}}</td>
-					<td><a href="{{route('results.edit',$student_subject->id)}}" class="btn btn-default">Edit</a></td>
+					<td><a href="{{route('results.edit',$student_subject->id)}}" class="btn btn-info btn-xs">Edit</a></td>
 				</tr>
 				</tr>
 			@endforeach	
@@ -46,7 +46,7 @@
 	<div class="col-md-3">
 		<div class="well">
 		<div class="row">
-			<img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded " height="30%" width="20%">
+			<img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded " height="30%" width="20%" style="margin-left:100px;">
 		</div>
 		
 		<h4>{{ $student->name }}</h4>
@@ -96,7 +96,7 @@
 			</div>-->
 			<div class="row">
 				<div class="col-md-12">
-				{{Html::linkRoute('students.index','<<All Students',[],['class'=>'btn btn-default btn-block btn-h1-spacing'])}}
+				{{Html::linkRoute('students.index','<<All Students',[],['class'=>'btn btn-primary btn-block btn-h1-spacing'])}}
 				</div>
 			</div>
 		</div>

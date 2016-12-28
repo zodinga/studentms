@@ -117,27 +117,34 @@
 				<dd>{{date('M j, Y h:i',strtotime($student->created_at))}}</dd>
 			</dl>
 			<dl class="dl-horizontal">
-			<dt>Last Updated</dt>
-			<dd>{{date('M j, Y h:i',strtotime($student->updated_at))}}</dd>
-		</dl>
-		{{Form::label('subjects','Subjects Taken:',['class'=>'form-spacing-top'])}}
-				{{Form::select('subjects[]',$subjects,null,['class'=>'select2-multi form-control','multiple'=>'multiple'])}}
-		<hr>
-
-		<div class="row">
-			<div class="col-sm-6">
-				{!! Html::linkRoute('students.show','Cancel',[$student->id],['class'=>'btn btn-danger btn-block']) !!}
-			</div>
-			<div class="col-sm-6">
-			{{Form::submit('Save Changes',['class'=>'btn btn-success btn-block'])}}
+				<dt>Last Updated</dt>
+				<dd>{{date('M j, Y h:i',strtotime($student->updated_at))}}</dd>
+			</dl>
+			
+			<div class="row">
+				<div class="col-md-12">
+				<a href="{{route('students.editSubject',$student->id)}}" class="btn btn-info btn-block">Edit Subjects</a>
+				</div>
 			</div>
 
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-			{{Html::linkRoute('students.index','<<All Students',[],['class'=>'btn btn-default btn-block btn-h1-spacing'])}}
+				
+			<hr>
+
+			<div class="row">
+				<div class="col-sm-6">
+					{!! Html::linkRoute('students.show','Cancel',[$student],['class'=>'btn btn-danger btn-block']) !!}
+				</div>
+				<div class="col-sm-6">
+				{{Form::submit('Save Changes',['class'=>'btn btn-success btn-block'])}}
+				</div>
+
 			</div>
-		</div>
+
+			<div class="row">
+				<div class="col-md-12">
+				{{Html::linkRoute('students.index','<<All Students',[],['class'=>'btn btn-default btn-block btn-h1-spacing'])}}
+				</div>
+			</div>
 		</div>
 	</div>
 {!!Form::close()!!}

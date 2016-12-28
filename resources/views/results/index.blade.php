@@ -1,19 +1,19 @@
 @extends('main')
-@section('title','| All Students')
+@section('title','| Students Results')
 
 @section('content')
 	<div class="row">
 		<div class="col-md-4">
-			<h1>All Students</h1>
+			<h1>Students Results</h1>
 		</div>
 		<div class="col-md-8">
 			{!!Form::open(['route'=>'results.search','method'=>'get','class'=>'navbar-form navbar-left'])!!}
 		        <div class="form-group">
 		          <input type="text" id="name" name="name" class="form-control form-spacing-top" placeholder="Search by Name">
 			    	{{Form::select('course_id', $courses ,null,['class'=>'form-control form-spacing-top','placeholder' => 'Pick a course...'])}}
-		          <input type="text" id="year" name="year" class="form-control form-spacing-top" placeholder="Year">
+		          <input type="text" id="year" name="year" class="form-control form-spacing-top" placeholder="Year" style = "width:60px;">
 		        </div>
-		        <button type="submit" class="btn btn-default form-spacing-top">Submit</button>
+		        <button type="submit" class="btn btn-success form-spacing-top">Submit</button>
 			{!!Form::close()!!}
 
 		</div>
@@ -40,7 +40,9 @@
 					<td>{{$student->course->name}}</td>
 					<td>{{$student->batch}}</td>
 					<td>{{$student->doj}}</td>
-					<td><a href="{{route('students.show',$student->id)}}" class="btn btn-default">View</a><a href="{{route('students.edit',$student->id)}}" class="btn btn-default">Edit</a><a href="{{route('results.show',$student->id)}}" class="btn btn-default">Result</a>
+					<td>
+						<a href="{{route('results.show',$student->id)}}" class="btn btn-info btn-sm">Result</a>
+						<a href="{{route('students.show',$student->id)}}" class="btn btn-primary btn-sm">View</a>
 					</td>
 				</tr>
 				@endforeach

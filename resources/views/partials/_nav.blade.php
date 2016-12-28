@@ -21,13 +21,28 @@ $courses=Course::pluck('name','id');
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
       @if(Auth::check())
-        <li class="{{ Request::is('dashboard')?"active":"" }}"><a href="/dashboard">Dashboard</a></li>
+          <li class="{{ Request::is('dashboard')?"active":"" }}"><a href="/dashboard">Dashboard</a></li>
+          <li class="{{ Request::is('students')?"active":"" }}"><a href="{{route('students.index')}} ">Students</a></li>
+          <li class="{{ Request::is('register')?"active":"" }}"><a href="{{route('students.index')}} ">Register</a></li>
+          <li class="{{ Request::is('internal')?"active":"" }}"><a href="{{route('results.index')}}">Internal</a></li>
+          <li class="{{ Request::is('results')?"active":"" }}"><a href="{{route('results.index')}}">Result</a></li>
+          <li class="{{ Request::is('index')?"active":"" }}"><a href="{{URL::to('index')}}">Report</a></li>
+          
+          <li class="{{ Request::is('users')?"active":"" }}"><a href="{{route('users.index')}}">Users</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{route('categories.index')}}">Category</a></li>
+                <li><a href="{{route('courses.index')}}">Course</a></li>
+                <li><a href="{{route('communities.index')}}">Community</a></li>
+                <li><a href="{{route('statuses.index')}}">Status</a></li>
+                <li><a href="{{route('subjects.index')}}">Subject</a></li>
+              </ul>
+          </li>
       @else
         <li class="{{ Request::is('/')?"active":"" }}"><a href="/">Home</a></li>
       @endif
-        <!--<li class="{{ Request::is('public')?"active":"" }}"><a href="/public">Students</a></li>-->
-        <li class="{{ Request::is('about')?"active":"" }}"><a href="/about">About</a></li>
-        <li class="{{ Request::is('contact')?"active":"" }}"><a href="/contact">Contact</a></li>
+        
       @if(Auth::check()==false)
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Students <span class="caret"></span></a>
@@ -58,23 +73,12 @@ $courses=Course::pluck('name','id');
 
 
       <ul class="nav navbar-nav navbar-right">
-
+        <li class="{{ Request::is('contact')?"active":"" }}"><a href="/contact">Contact</a></li>
+        <li class="{{ Request::is('about')?"active":"" }}"><a href="/about">About</a></li>
       @if(Auth::check())
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello {{Auth::user()->name}}<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="{{route('students.index')}} ">Students</a></li>
-            <li><a href="{{route('categories.index')}}">Category</a></li>
-            <li><a href="{{route('courses.index')}}">Course</a></li>
-            <li><a href="{{route('communities.index')}}">Community</a></li>
-            <li><a href="{{route('statuses.index')}}">Status</a></li>
-            <li><a href="{{route('subjects.index')}}">Subject</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{{route('results.index')}}">Semester Result</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{{URL::to('index')}}">Create Report</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{{route('users.index')}}">Users</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="{{route('logout')}}">Logout</a></li>
           </ul>

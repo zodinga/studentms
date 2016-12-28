@@ -25,7 +25,7 @@ class ResultController extends Controller
      */
     public function index()
     {
-        $students=Student::orderBy('id','desc')->paginate(10);
+        $students=Student::orderBy('id','desc')->paginate(8);
         $courses=Course::pluck('name','id');
         return view('results.index')
                     ->withCourses($courses)

@@ -14,7 +14,7 @@
 			    	{{Form::select('course_id', $courses ,null,['class'=>'form-control form-spacing-top','placeholder' => 'Pick a course...'])}}
 		          <input type="text" id="year" name="year" class="form-control form-spacing-top" placeholder="Year" style = "width:60px;">
 		        </div>
-		        <button type="submit" class="btn btn-info form-spacing-top">Search</button>
+		        <button type="submit" class="btn btn-success form-spacing-top">Search</button>
 			{!!Form::close()!!}
 
 			<a href="{{ route('students.create') }}" class="btn btn-primary btn-lg btn-h1-spacing col-md-offset-2">New Student</a>
@@ -49,7 +49,10 @@
 					<td>{{$student->doj}}</td>
 					<td>{{$student->batch}}</td>
 					<td>{{date('M j, Y',strtotime($student->updated_at))}}</td>
-					<td><a href="{{route('students.show',$student->id)}}" class="btn btn-default">View</a><a href="{{route('students.edit',$student->id)}}" class="btn btn-default">Edit</a><a href="{{route('results.show',$student->id)}}" class="btn btn-default">Result</a></td>
+					<td>
+						<a href="{{route('students.show',$student->id)}}" class="btn btn-info">View</a>
+						<a href="{{route('students.edit',$student->id)}}" class="btn btn-warning">Edit</a>
+					</td>
 				</tr>
 				@endforeach
 				</tbody>
