@@ -352,12 +352,13 @@ class StudentController extends Controller
 
         //updating student-subject relationship
 
-        if(isset($request->subjects)){
+        /*if(isset($request->subjects)){
             $student->subjects()->sync($request->subjects);
         }
         else{
             $student->subjects()->sync(array());
         }
+        */
         //end student-subject relationship
         
         $this->resultClean($student->id);
@@ -425,7 +426,7 @@ class StudentController extends Controller
     }
 
     public function updateSubject(Request $request,$id){
-        //dd($request->subjects);
+
         $student=Student::find($id);
         if(isset($request->subjects)){
             $student->subjects()->sync($request->subjects);
