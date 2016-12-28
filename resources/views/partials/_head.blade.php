@@ -6,7 +6,7 @@
     <link rel="icon" type="image/ico" href="/img/nielit-fevicon.jpg"/>
 
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>SMS @yield('title')</title>
+    <title>NIELIT SMS @yield('title')</title>
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->

@@ -127,10 +127,10 @@ Route::group(['middlewareGroups' => ['web']], function () {
 
 	//USERS
 	//Route::resource('users','UserController',['except'=>['create']]);
-	Route::get('users',['as'=>'users.index','uses'=>'UserController@index','middleware' => 'roles','roles' => ['Admin']]);
+	Route::get('users',['as'=>'users.index','uses'=>'UserController@index','middleware' => 'roles','roles' => ['Admin','Coordinator']]);
 	Route::get('users/create',['as'=>'users.create','uses'=>'UserController@create','middleware' => 'roles','roles' => ['Admin']]);
 	Route::post('users/create',['as'=>'users.store','uses'=>'UserController@store','middleware' => 'roles','roles' => ['Admin']]);
-	Route::get('users/{id}',['as'=>'users.show','uses'=>'UserController@show','middleware' => 'roles','roles' => ['Admin']]);
+	Route::get('users/{id}',['as'=>'users.show','uses'=>'UserController@show','middleware' => 'roles','roles' => ['Admin','Coordinator']]);
 	Route::get('users/{id}/edit',['as'=>'users.edit','uses'=>'UserController@edit','middleware' => 'roles','roles' => ['Admin']]);
 	Route::put('users/{id}',['as'=>'users.update','uses'=>'UserController@update']);
 	Route::delete('users/{id}',['as'=>'users.destroy','uses'=>'UserController@destroy','middleware' => 'roles','roles' => ['Admin']]);
