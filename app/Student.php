@@ -32,11 +32,14 @@ class Student extends Model
     }
 //tags
     public function subjects(){
-        return $this->belongsToMany('App\Subject');
+        return $this->belongsToMany('App\Subject')->orderBy('semester');
     }
 
 
 /////////////
+    public function registrations(){
+        return $this->hasMany('App\Registration')->orderBy('semester','DESC');
+    }
     
 
 }

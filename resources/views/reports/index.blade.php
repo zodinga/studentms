@@ -1,10 +1,10 @@
 @extends('main')
-@section('title','| Reports')
+@section('title','| Students Report')
 
 @section('content')
 	<div class="row">
 		<div class="col-md-3">
-			<h2>{{ isset($title)?$title:"All " }} Students Report</h2>
+			<h2>{{ isset($title)?$title:"" }} Students Report</h2>
 		</div>
 
 		<div class="col-md-6">

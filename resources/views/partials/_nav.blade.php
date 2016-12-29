@@ -23,10 +23,22 @@ $courses=Course::pluck('name','id');
       @if(Auth::check())
           <li class="{{ Request::is('dashboard')?"active":"" }}"><a href="/dashboard">Dashboard</a></li>
           <li class="{{ Request::is('students')?"active":"" }}"><a href="{{route('students.index')}} ">Students</a></li>
-          <li class="{{ Request::is('register')?"active":"" }}"><a href="{{route('students.index')}} ">Register</a></li>
-          <li class="{{ Request::is('internal')?"active":"" }}"><a href="{{route('results.index')}}">Internal</a></li>
+          <li class="{{ Request::is('register')?"active":"" }}"><a href="{{route('registrations.index')}} ">Register</a></li>
+          <li class="{{ Request::is('internal')?"active":"" }}"><a href="{{route('internals.index')}}">Internal</a></li>
           <li class="{{ Request::is('results')?"active":"" }}"><a href="{{route('results.index')}}">Result</a></li>
-          <li class="{{ Request::is('index')?"active":"" }}"><a href="{{URL::to('index')}}">Report</a></li>
+
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{URL::to('index')}}">Student</a></li>
+                <li><a href="{{URL::to('index')}}">Registration</a></li>
+                <li><a href="{{URL::to('index')}}">Internal</a></li>
+                <li><a href="{{URL::to('index')}}">Result</a></li>
+              </ul>
+          </li>
+
+          <!--<li class="{{ Request::is('index')?"active":"" }}"><a href="{{URL::to('index')}}">Report</a></li>-->
           
           <li class="{{ Request::is('users')?"active":"" }}"><a href="{{route('users.index')}}">Users</a></li>
           <li class="dropdown">

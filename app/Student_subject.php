@@ -16,4 +16,7 @@ class Student_subject extends Model
         return $this->hasOne('App\Result','student_subject_id');
     }
 
+    public function internal(){
+        return $this->hasOne('App\Internal','student_subject_id');
+    }
 }

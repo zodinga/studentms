@@ -9,15 +9,12 @@ use App\Http\Requests;
 use App\Student;
 use App\Subject;
 use App\Student_subject;
-use App\Result;
+use App\Internal;
 use App\Course;
 use Session;
 
-class ResultController extends Controller
+class InternalController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -27,19 +24,9 @@ class ResultController extends Controller
     {
         $students=Student::orderBy('id','desc')->paginate(8);
         $courses=Course::pluck('name','id');
-        return view('results.index')
+        return view('internals.index')
                     ->withCourses($courses)
                     ->withStudents($students);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     public function search(Request $request)
@@ -60,9 +47,19 @@ class ResultController extends Controller
         //$students->appends(['name'=>$request->name,'course_id'=>$request->course_id,'year'=>$request->year]);
         //$students->appends(Request::except('page'));
         $courses=Course::pluck('name','id');
-        return view('results.index')
+        return view('internals.index')
                     ->withCourses($courses)
                     ->withStudents($students);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -73,35 +70,21 @@ class ResultController extends Controller
      */
     public function store(Request $request)
     {
-       $this->validate($request,array(
-            'semester'=>'integer',
-            'sessional'=>'integer',
-            'total'=>'integer',
-            'grade'=>'max:5',
-            'grade_points'=>'integer',
-            'gp_earned'=>'integer',
+        $this->validate($request,array(
+            'mark'=>'integer',
             ));
 
-        $result=new Result;
-        //dd($result->id);
-        $result->student_subject_id=$request->student_subject_id;
-        $result->semester=$request->semester;
-        $result->sessional=$request->sessional;
+        $internal=new Internal();
 
-        $sem=$request->semester?$request->semester:0;
-        $sess=$request->sessional?$request->sessional:0;
-        $result->total=$sem + $sess;
+        $internal->student_subject_id=$request->student_subject_id;
+        $internal->attendance=$request->attendance;
+        $internal->mark=$request->mark;
+        $internal->remarks=$request->remarks;
 
-        $result->grade=$request->grade;
-        $result->grade_points=$request->grade_points;
-        $result->gp_earned=$request->gp_earned;
-        $result->remarks=$request->remarks;
+        $internal->save();
+        Session::flash('success','Internal created successfully!!');
 
-        $result->save();
-
-        Session::flash('success','Result created successfully!!');
-
-        return redirect()->route('results.show',$result->student_subject['student_id']);
+        return redirect()->route('internals.show',$internal->student_subject['student_id']);
     }
 
     /**
@@ -114,7 +97,7 @@ class ResultController extends Controller
     {
         $student=Student::find($id);
         $student_subjects=Student_subject::where('student_id','=',$student->id)->get();
-        return view('results.show')->withStudent($student)
+        return view('internals.show')->withStudent($student)
                                     ->with('student_subjects',$student_subjects);
     }
 
@@ -126,17 +109,16 @@ class ResultController extends Controller
      */
     public function edit($id)
     {
-        
-        //$student=Student::find($id);
-        //$student_subject=Student_subject::find($id);
-        $result=Result::where('student_subject_id','=',$id)->first();
+        $internal=Internal::where('student_subject_id','=',$id)->first();
         $stud_subj=Student_subject::find($id);
 
         $subject=$stud_subj->subject->name;
-        if(isset($result))
-        return view('results.edit')->with('result',$result)->withSubject($subject);
-        else
-            return view('results.create')->with('student_subject_id',$id)->withSubject($subject);
+
+        if(isset($internal))
+            return view('internals.edit')->with('internal',$internal)->withSubject($subject);
+        else{
+            return view('internals.create')->with('student_subject_id',$id)->withSubject($subject);
+        }
     }
 
     /**
@@ -148,29 +130,23 @@ class ResultController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd('update');
         $this->validate($request,array(
-            'semester'=>'integer',
-            'sessional'=>'integer',
-            'total'=>'integer',
-            'grade'=>'max:5',
-            'grade_points'=>'integer',
-            'gp_earned'=>'integer',
+            'mark'=>'integer',
             ));
 
-        $result=Result::find($id);
-        //dd($result->id);
-        $result->semester=$request->semester;
-        $result->sessional=$request->sessional;
-        $result->total=$request->semester + $request->sessional;
-        $result->grade=$request->grade;
-        $result->grade_points=$request->grade_points;
-        $result->gp_earned=$request->gp_earned;
-        $result->remarks=$request->remarks;
+        $internal=Internal::find($id);
+        //if(isset($internal)==false)
+        //    $internal=new Internal();
+        $internal->student_subject_id=$request->student_subject_id;
+        $internal->attendance=$request->attendance;
+        $internal->mark=$request->mark;
+        $internal->remarks=$request->remarks;
 
-        $result->save();
-        Session::flash('success','Result edited successfully!!');
+        $internal->save();
+        Session::flash('success','Internal edited successfully!!');
 
-        return redirect()->route('results.show',$result->student_subject['student_id']);
+        return redirect()->route('internals.show',$internal->student_subject['student_id']);
     }
 
     /**
@@ -182,5 +158,15 @@ class ResultController extends Controller
     public function destroy($id)
     {
         //
+        $internal=Internal::find($id);
+
+        if(isset($internal)){
+            $internal->delete();
+            Session::flash('success','Internal Deleted Successfully');
+        }
+        else
+            Session::flash('unsuccess','Internal not Found');
+
+        return redirect()->back();
     }
 }

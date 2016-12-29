@@ -155,8 +155,38 @@ Route::group(['middlewareGroups' => ['web']], function () {
 	Route::get('results/{id}',['as'=>'results.show','uses'=>'ResultController@show','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
 	Route::get('results/{id}/edit',['as'=>'results.edit','uses'=>'ResultController@edit','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
 	Route::put('results/{id}',['as'=>'results.update','uses'=>'ResultController@update','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
-	Route::delete('results/{id}',['as'=>'results.destroy','uses'=>'ResultController@destroy','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
+	Route::delete('results/{id}',['as'=>'results.destroy','uses'=>'ResultController@destroy','middleware' => 'roles','roles' => ['Admin','Coordinator']]);
+	
+	Route::get('search', ['uses'=>'ResultController@search','as'=>'results.search']);
 	//END RESULTS
+
+	//INTERNALS
+	//Route::resource('internals','InternalController');
+	Route::get('internals',['as'=>'internals.index','uses'=>'InternalController@index']);
+	Route::get('internals/create',['as'=>'internals.create','uses'=>'InternalController@create','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty']]);
+	Route::post('internals/create',['as'=>'internals.store','uses'=>'InternalController@store','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty']]);
+	Route::get('internals/{id}',['as'=>'internals.show','uses'=>'InternalController@show','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty']]);
+	Route::get('internals/{id}/edit',['as'=>'internals.edit','uses'=>'InternalController@edit','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty']]);
+	Route::put('internals/{id}',['as'=>'internals.update','uses'=>'InternalController@update','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty']]);
+	Route::delete('internals/{id}',['as'=>'internals.destroy','uses'=>'InternalController@destroy','middleware' => 'roles','roles' => ['Admin','Coordinator']]);
+	
+	Route::get('internals.search', ['uses'=>'InternalController@search','as'=>'internals.search']);
+	//END INTERNALS
+
+	//REGISTRATION
+	Route::get('registrations',['as'=>'registrations.index','uses'=>'RegistrationController@index']);
+	Route::get('registrations/create/{id}',['as'=>'registrations.create','uses'=>'RegistrationController@create','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
+	Route::post('registrations/create',['as'=>'registrations.store','uses'=>'RegistrationController@store','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
+	Route::get('registrations/{id}',['as'=>'registrations.show','uses'=>'RegistrationController@show','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
+	Route::get('registrations/{id}/edit',['as'=>'registrations.edit','uses'=>'RegistrationController@edit','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
+	Route::put('registrations/{id}',['as'=>'registrations.update','uses'=>'RegistrationController@update','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
+	Route::delete('registrations/{id}',['as'=>'registrations.destroy','uses'=>'RegistrationController@destroy','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
+
+	Route::get('registrations.search', ['uses'=>'RegistrationController@search','as'=>'registrations.search',
+		'middleware'=>'roles',
+		'roles'=>['Reception','Admin','Coordinator','Faculty']
+		]);
+	//END REGISTRATION
 
 	//SEARCH
 	Route::get('studentsearch', ['uses'=>'StudentController@search','as'=>'students.search',
@@ -164,7 +194,7 @@ Route::group(['middlewareGroups' => ['web']], function () {
 		'roles'=>['Reception','Admin','Coordinator','Faculty']
 		]);
 
-	Route::get('search', ['uses'=>'ResultController@search','as'=>'results.search']);
+	
 	//END SEARCH
 
 	//EXCEL IMPORT AND EXPORT

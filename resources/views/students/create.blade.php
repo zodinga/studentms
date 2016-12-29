@@ -25,7 +25,7 @@
 			    {{Form::label('email','Email:')}}
 			    {{Form::email('email',null,['class'=>'form-control','data-parsley-type'=>'email'])}}
 
-			    {{Form::label('inst_no','Institute Number:')}}
+			    {{Form::label('inst_no','Institute Roll Number:')}}
 			    {{Form::text('inst_no',null,['class'=>'form-control','maxlength'=>'20'])}}
 
 			    {{Form::label('univ_reg_no','University/Board Reg:')}}

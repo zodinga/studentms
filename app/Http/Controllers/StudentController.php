@@ -246,6 +246,7 @@ class StudentController extends Controller
     public function show($id)
     {
         $student=Student::find($id);
+
         return view('students.show')->withStudent($student);
     }
 
@@ -393,6 +394,12 @@ class StudentController extends Controller
 
         //delete subjects
         $student->subjects()->detach();
+
+        $registrations=$student->registrations;
+        foreach($registrations as $registration){
+            $registration->delete();    
+        }
+        
         
         //delete photo
         Storage::delete($student->photo);

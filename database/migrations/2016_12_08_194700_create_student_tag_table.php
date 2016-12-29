@@ -13,7 +13,7 @@ class CreateStudentTagTable extends Migration
     public function up()
     {
         Schema::create('student_subject', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('student_id')->unsigned();
                 $table->foreign('student_id')->references('id')->on('students');
             $table->integer('subject_id')->unsigned();

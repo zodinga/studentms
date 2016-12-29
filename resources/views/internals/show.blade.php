@@ -1,23 +1,19 @@
 @extends('main')
-@section('title','| Student Result')
+@section('title','| Student Internals')
 
 @section('content')
 <div class="row">
 	<div class="col-md-10">
 	<div class="subjects">
-		
+		<h1>Internal Marks</h1>
 			<table class="table">
 			<thead>
 				<tr>
 					<td>Code</td>
 					<td>Sem</td>
 					<td>Subject</td>
-					<td>Sess</td>
-					<td>Sem</td>
-					<td>Total</td>
-					<td>Grade</td>
-					<td>GP</td>	
-					<td>GP Earned</td>
+					<td>Attendance</td>
+					<td>Mark</td>
 					<td>Remarks</td>
 					<td>Action</td>
 				</tr>
@@ -27,15 +23,20 @@
 				<tr>
 					<td>{{$student_subject->subject->subject_code}}</td>
 					<td>{{$student_subject->subject->semester}}</td>
-					<td>{{$student_subject->subject->name}}</td>
-					<td>{{$student_subject->result['sessional']}}</td>
-					<td>{{$student_subject->result['semester']}}</td>
-					<td>{{$student_subject->result['total']}}</td>
-					<td>{{$student_subject->result['grade']}}</td>
-					<td>{{$student_subject->result['grade_points']}}</td>
-					<td>{{$student_subject->result['gp_earned']}}</td>
-					<td>{{$student_subject->result['remarks']}}</td>
-					<td><a href="{{route('results.edit',$student_subject->id)}}" class="btn btn-info btn-xs">Edit</a></td>
+					<td>{{ substr(strip_tags($student_subject->subject->name), 0, 10) }}{{ strlen(strip_tags($student_subject->subject->name)) > 10 ? "..." : "" }}
+					{{substr(strip_tags($student_subject->subject->name), strlen(strip_tags($student_subject->subject->name))-11)}}
+					</td>
+					<td>{{$student_subject->internal['attendance']}}</td>
+					<td>{{$student_subject->internal['mark']}}</td>
+					<td>{{$student_subject->internal['remarks']}}</td>
+					<td><a href="{{route('internals.edit',$student_subject->id)}}" class="btn btn-info btn-xs">Edit</a></td>
+					<td>
+					@if(isset($student_subject->internal['id']))
+						{!! Form::open(['route'=>['internals.destroy',$student_subject->internal['id']],'method'=>'delete']) !!}
+							{{Form::submit('Del',['class'=>'btn btn-danger btn-xs'])}}
+						{!! Form::close() !!}
+					@endif
+					</td>
 				</tr>
 				</tr>
 			@endforeach	
@@ -53,17 +54,17 @@
 		<hr>
 		{{ $student->name }}
 
-		<!--	<table class="table">
+			<!--<table class="table">
 				<tr>
-					<td>Inst Roll:</td>
+					<td>Inst Roll No:</td>
 					<td>{{$student->inst_no}}</td>
 				</tr>
 				<tr>
-					<td>Reg:</td>
+					<td>Univ/Board Reg:</td>
 					<td>{{$student->univ_reg_no}}</td>
 				</tr>
 				<tr>
-					<td>Exam:</td>
+					<td>Exam Roll:</td>
 					<td>{{$student->exam_roll_no}}</td>
 				</tr>
 				<tr>
@@ -75,7 +76,7 @@
 					<td>{{$student->batch}}</td>
 				</tr>
 				<tr>
-					<td>Year:</td>
+					<td>Year of Join:</td>
 					<td>{{$student->doj}}</td>
 				</tr>
 				<tr>
@@ -84,18 +85,9 @@
 				</tr>
 			</table>
 			-->
+
 			<hr>
-			<!--
-			<div class="row">
-				<div class="col-sm-6">
-					{!! Html::linkRoute('students.edit','Edit',[$student->id],['class'=>'btn btn-primary btn-block']) !!}
-				</div>
-				<div class="col-sm-6">
-				{!! Form::open(['route'=>['students.destroy',$student->id],'method'=>'delete']) !!}
-					{{Form::submit('Delete',['class'=>'btn btn-danger btn-block'])}}
-				{!! Form::close() !!}
-				</div>
-			</div>-->
+
 			<div class="row">
 				<div class="col-md-12">
 				{{Html::linkRoute('students.index','<<All Students',[],['class'=>'btn btn-primary btn-block btn-h1-spacing'])}}
