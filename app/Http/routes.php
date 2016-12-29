@@ -64,7 +64,7 @@ Route::group(['middlewareGroups' => ['web']], function () {
 		'roles'=>['Reception','Admin','Coordinator','Faculty']
 		]);
 
-	///////////////Route::get('pages/students/{id}',['as'=>'pages.students','uses'=>'PagesController@getStudents']);
+	Route::get('pages/students/{id}',['as'=>'pages.students','uses'=>'PagesController@getStudents','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
 
 	//STUDENT
 	//Route::resource('students','StudentController');
