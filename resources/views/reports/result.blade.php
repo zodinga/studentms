@@ -1,15 +1,15 @@
 @extends('main')
-@section('title','| Students Report')
+@section('title','| Students Results')
 
 @section('content')
 	<div class="row">
 		<div class="col-md-3">
-			<h2>{{ isset($title)?$title:"" }} Students Report</h2>
+			<h2>{{ isset($title)?$title:"" }} Students Results</h2>
 		</div>
 
 		<div class="col-md-6">
 		
-			{!!Form::open(['route'=>'excel.export','method'=>'get'])!!}
+			{!!Form::open(['route'=>'reports.exportResult','method'=>'get'])!!}
 		      
 		        {{Form::label('name','Name:')}}
 			    {{Form::text('name',null,['class'=>'form-control','maxlength'=>'50', 'autofocus'=>'autofocus'])}}
@@ -40,14 +40,8 @@
 				</div>
 
 				<!--{{Form::submit('Export to Excel',['class'=>'btn btn-success btn-lg btn-block','style'=>'margin-top:20px'])}}-->
-
-		         
 			{!!Form::close()!!}
-
-
-
 		<hr>
-	
 	</div>
 	</div>
 @stop

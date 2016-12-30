@@ -84,7 +84,7 @@
 				<!--Import new subjects-->
 				{!! Form::open(['route' => 'excel.importSubject','method'=>'post','data-parsley-validate'=>'','files'=>true]) !!}
 
-					{{Form::label('import','Select Excel file:')}}
+					{{Form::label('import','Select Excel(.CSV) file:')}}
 					{{Form::file('import',['accept'=>'.csv' ,'class'=>'form-control'])}}
 		
 		    		{{Form::submit('Import',['class'=>'btn btn-warning btn-block','style'=>'margin-top:20px'])}}

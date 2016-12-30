@@ -28,6 +28,7 @@
 					<th>Course</th>
 					<th>Join</th>
 					<th>Batch</th>
+					<th>Registered As</th>
 					<th>Actions</th>
 				</thead>
 				<tbody>
@@ -40,8 +41,13 @@
 					<td>{{$student->doj}}</td>
 					<td>{{$student->batch}}</td>
 					<td>
-						<a href="{{route('registrations.create',$student->id)}}" class="btn btn-warning">Register</a>
-						<a href="{{route('students.show',$student->id)}}" class="btn btn-info">View</a>
+						@foreach($student->registrations as $reg)
+							Sem-{{$reg->semester}},
+						@endforeach
+					</td>
+					<td>
+						<a href="{{route('registrations.create',$student->id)}}" class="btn btn-warning btn-sm">Register</a>
+						<a href="{{route('students.show',$student->id)}}" class="btn btn-info btn-sm">View</a>
 					</td>
 				</tr>
 				@endforeach

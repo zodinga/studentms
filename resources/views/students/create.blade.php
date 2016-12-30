@@ -117,7 +117,7 @@
 		</div>
 		<div class="col-md-2">
 		{!! Form::open(['route' => 'excel.import','method'=>'post','data-parsley-validate'=>'','files'=>true]) !!}
-			{{Form::label('import','Select Excel file:')}}
+			{{Form::label('import','Select Excel(.CSV) file:')}}
 			{{Form::file('import',['accept'=>'.csv' ,'class'=>'form-control'])}}
 		
 		    {{Form::submit('Import',['class'=>'btn btn-success btn-lg btn-block','style'=>'margin-top:20px'])}}

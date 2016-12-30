@@ -188,6 +188,17 @@ Route::group(['middlewareGroups' => ['web']], function () {
 		]);
 	//END REGISTRATION
 
+	//REPORT
+	Route::get('reports/registration',['as'=>'reports.registration','uses'=>'ReportController@getRegistration']);
+	Route::get('exportRegistraation',['uses'=>'ReportController@getExportRegistration','as'=>'reports.exportRegistration']);
+
+	Route::get('reports/internal',['as'=>'reports.internal','uses'=>'ReportController@getInternal']);
+	Route::get('exportInternal',['uses'=>'ReportController@getExportInternal','as'=>'reports.exportInternal']);
+
+	Route::get('reports/result',['as'=>'reports.result','uses'=>'ReportController@getResult']);
+	Route::get('exportResult',['uses'=>'ReportController@getExportResult','as'=>'reports.exportResult']);
+	//END REPORT
+
 	//SEARCH
 	Route::get('studentsearch', ['uses'=>'StudentController@search','as'=>'students.search',
 		'middleware'=>'roles',

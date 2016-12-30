@@ -1,5 +1,5 @@
 @extends('main')
-@section('title','| Homepage')
+@section('title','| Dashboard')
 @section('stylesheet')
   {!! Html::style('css/dashboard.css') !!}
   {!! Html::style('css/circle.css') !!}
