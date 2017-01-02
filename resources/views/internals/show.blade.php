@@ -93,6 +93,12 @@
 				{{Html::linkRoute('students.index','<<All Students',[],['class'=>'btn btn-primary btn-block btn-h1-spacing'])}}
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-12">
+				<a href="{{ URL::previous() }}" class="btn btn-info btn-block btn-h1-spacing">Back</a>
+				</div>
+
+			</div>
 		</div>
 	</div>
 </div>

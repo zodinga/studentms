@@ -30,7 +30,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-md-12">
-			<a href="{{url('students')}}" class="btn btn-primary">Back</a>
+			<a href="{{ URL::previous() }}" class="btn btn-primary">Back</a>
 		</div>
 	</div>
 	<div class="row">
