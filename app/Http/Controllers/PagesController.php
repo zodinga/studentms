@@ -8,6 +8,7 @@ use Mail;
 use App\Student;
 use App\Course;
 use Session;
+use Cache;
 
 class PagesController extends Controller{
 
@@ -46,6 +47,7 @@ class PagesController extends Controller{
 	}
 
 	public function getContact(){
+		
 		return view('pages.contact');
 	}
 

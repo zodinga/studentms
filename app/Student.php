@@ -41,5 +41,7 @@ class Student extends Model
         return $this->hasMany('App\Registration')->orderBy('semester','DESC');
     }
     
-
+    public function documents(){
+        return $this->hasMany('App\Document');
+    }
 }

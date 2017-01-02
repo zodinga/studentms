@@ -48,7 +48,7 @@
 	<div class="col-md-2">
 		<div class="well">
 		<div class="row">
-			<img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded " height="50%" width="40%" style="margin-left:50px;">
+			<img src="{{$student->photo?asset('photo/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded " height="50%" width="40%" style="margin-left:50px;">
 		</div>
 		<hr>
 		{{ $student->name }}

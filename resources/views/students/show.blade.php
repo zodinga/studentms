@@ -74,15 +74,37 @@
 		<div class="subjects">
 		<h3>Subjects Taken:</h3>
 			@foreach($student->subjects as $subject)
+				@if($subject->semester==1)
+				<span class="label label-primary">{{$subject->semester}} | {{$subject->name}}</span>
+				@endif
+				@if($subject->semester==2)
+				<span class="label label-success">{{$subject->semester}} | {{$subject->name}}</span>
+				@endif
+				@if($subject->semester==3)
+				<span class="label label-info">{{$subject->semester}} | {{$subject->name}}</span>
+				@endif
+				@if($subject->semester==4)
+				<span class="label label-warning">{{$subject->semester}} | {{$subject->name}}</span>
+				@endif
+				@if($subject->semester==5)
+				<span class="label label-danger">{{$subject->semester}} | {{$subject->name}}</span>
+				@endif
+				@if($subject->semester==6)
 				<span class="label label-default">{{$subject->semester}} | {{$subject->name}}</span>
+				@endif
 			@endforeach
 		</div>
 		
 	</div>
 	<div class="col-md-4">
-		<div class="well">
-			<img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="35%" width="25%" style="margin-left:100px;">
-<p>
+		<!--<div class="well">-->
+		<div class="panel panel-primary">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">{{$student->name}}</h3>
+		  </div>
+		  <div class="panel-body">
+			<img src="{{$student->photo?asset('photo/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="35%" width="25%" style="margin-left:100px;">
+			<p>
 				<dl class="dl-horizontal">
 					<label>Created At: </label>
 					{{date('M j, Y h:i',strtotime($student->created_at))}}
@@ -91,7 +113,7 @@
 					{{date('M j, Y h:i',strtotime($student->updated_at))}}
 				</dl>
 
-		<div class="row">
+			<div class="row">
 				<div class="col-sm-6">
 					{!! Html::linkRoute('students.edit','Edit',[$student->id],['class'=>'btn btn-primary btn-block']) !!}
 				</div>
@@ -100,14 +122,15 @@
 					{{Form::submit('Delete',['class'=>'btn btn-danger btn-block'])}}
 				{!! Form::close() !!}
 				</div>
-		</div>
-		<div class="row">
+			</div>
+			<div class="row">
 				<div class="col-md-12">
 				{{Html::linkRoute('students.index','<<All Students',[],['class'=>'btn btn-default btn-block btn-h1-spacing'])}}
 				</div>
-		</div>
-		<hr>
-		<dl class="dl-horizontal">
+
+			</div>
+			<hr>
+			<dl class="dl-horizontal">
 					<label>Registrations</label>
 					<div class="table-responsive">
 						<table class="table table-condensed table-bordered">
@@ -136,6 +159,7 @@
 						</table>
 					</div>
 				</dl>
+			</div>
 		</div>
 	</div>
 </div>

@@ -69,7 +69,7 @@
 			<thead>
 				<tr>
 					<th>Subject</th>
-					<th>Course</th>
+					<th>Code</th>
 					<th>Sess</th>
 					<th>Sem</th>
 					<th>Total</th>
@@ -82,7 +82,7 @@
 			@foreach($student_subjects as $student_subject)
 				<tr>
 					<td>{{$student_subject->subject->name}}</td>
-					<td>{{$student_subject->subject->course->name}}</td>
+					<td>{{$student_subject->subject->subject_code}}</td>
 					<td>{{$student_subject->result['sessional']}}</td>
 					<td>{{$student_subject->result['semester']}}</td>
 					<td>{{$student_subject->result['total']}}</td>

@@ -220,4 +220,16 @@ Route::group(['middlewareGroups' => ['web']], function () {
 	//Admin Route
 	Route::post('assign',['uses'=>'AdminController@postAssign', 'as'=>'admin.assign','middleware' => 'roles','roles' => ['Admin']]);
 
+	//Documents
+	Route::get('documents/show/{id}',['uses' => 'DocumentController@show','as'=>'documents.show']);
+	Route::get('documents/edit/{id}',['uses' => 'DocumentController@edit','as'=>'documents.edit']);
+	Route::put('documents/update/{id}',['as'=>'documents.update','uses'=>'DocumentController@update']);
+	Route::post('documents/save','DocumentController@saveDocument');
+
+	Route::get('documents/destroy/{id}',['uses' => 'DocumentController@destroy','as'=>'documents.destroy']);
+	Route::post('documents/upload',['uses'=>'DocumentController@documentUpload','as'=>'documents.upload']);
+
+	Route::get('documents/delete/{id}','DocumentController@deleteDocument');
+	//End Documents
+
 });

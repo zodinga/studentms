@@ -179,7 +179,7 @@ class StudentController extends Controller
             $photo=$request->file('photo');
             $filename=$student->id.'.'. $photo->getClientOriginalExtension();
 
-            $location=public_path('images/'.$filename);
+            $location=public_path('photo/'.$filename);
 
             Image::make($photo)->resize(413,531)->save($location);
 
@@ -337,7 +337,7 @@ class StudentController extends Controller
             $photo=$request->file('photo');
             $filename=$student->id.'.'. $photo->getClientOriginalExtension();
 
-            $location=public_path('images/'.$filename);
+            $location=public_path('photo/'.$filename);
 
             Image::make($photo)->resize(413,531)->save($location);
 
@@ -403,6 +403,15 @@ class StudentController extends Controller
         
         //delete photo
         Storage::delete($student->photo);
+
+        //Delete documents
+        foreach($student->documents as $document){
+
+            unlink(public_path('documents\\'.$document->file_name)); 
+            unlink(public_path('documents\\thumbs\\'.$document->file_name)); 
+        }
+        $student->documents()->delete();
+        //
 
         $student->delete();
 

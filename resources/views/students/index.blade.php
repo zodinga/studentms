@@ -41,7 +41,7 @@
 				@foreach($students as $student)
 				<tr>
 					<td>{{$student->id}}</td>
-					<td><img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="33" width="28"></td>
+					<td><img src="{{$student->photo?asset('photo/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="33" width="28"></td>
 					<td>{{substr($student->name,0,50)}}{{ strlen($student->name)>50?"..":"" }}</td>
 					<td>{{$student->phone}}</td>
 					<td>{{$student->course->name}}</td>
@@ -56,6 +56,8 @@
 					<td>
 						<a href="{{route('students.show',$student->id)}}" class="btn btn-info">View</a>
 						<a href="{{route('students.edit',$student->id)}}" class="btn btn-warning">Edit</a>
+						<a href="{{route('documents.show',$student->id)}}" class="btn btn-primary">{{ $student->documents()->count() }} Docs</a>
+
 					</td>
 				</tr>
 				@endforeach

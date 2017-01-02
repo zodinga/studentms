@@ -107,7 +107,7 @@
 	</div>
 	<div class="col-md-4">
 		<div class="well">
-			<img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="45%" width="35%" style="margin-left:100px;">
+			<img src="{{$student->photo?asset('photo/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="45%" width="35%" style="margin-left:100px;">
 
 			<dl class="dl-horizontal">
 				<dt>Created At</dt>
@@ -121,6 +121,11 @@
 			<div class="row">
 				<div class="col-md-12">
 				<a href="{{route('students.editSubject',$student->id)}}" class="btn btn-info btn-block">Edit Subjects</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+				<a href="{{route('documents.show',$student->id)}}" class="btn btn-primary btn-block btn-h1-spacing">Add Documents (Total: {{ $student->documents()->count() }})</a>
 				</div>
 			</div>
 

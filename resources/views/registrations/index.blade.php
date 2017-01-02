@@ -35,7 +35,7 @@
 				@foreach($students as $student)
 				<tr>
 					<td>{{$student->id}}</td>
-					<td><img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="33" width="28"></td>
+					<td><img src="{{$student->photo?asset('photo/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="33" width="28"></td>
 					<td>{{substr($student->name,0,50)}}{{ strlen($student->name)>50?"..":"" }}</td>
 					<td>{{$student->course->name}}</td>
 					<td>{{$student->doj}}</td>
