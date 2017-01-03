@@ -1,11 +1,33 @@
 @extends('main')
 @section('title',"| $student->name")
+
+@section('stylesheet')
+	<link rel="stylesheet" href="/css/lightbox.css">
+
+	<style type="text/css">
+	.document-images img{
+		width: 240px;
+		height: 160px;
+		border: 2px solid green;
+		margin-bottom: 10px;
+	}
+	.document-images ul{
+		margin: 0;
+		padding: 0;
+	}
+	.document-images li{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		float: left;
+		padding-right: 10px;
+	}
+</style>
+@stop
+
 @section('content')
 	<div class="row">
-		<div class="col-md-2">
-			<img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" height="200" width="150">
-			
-		</div>
+
 		<div class="col-md-10">
 			<h1>{{ $student->name }}</h1>
 			<b>Phone:</b>{{$student->phone}}, <b>Email:</b>{{$student->email}}
@@ -57,11 +79,7 @@
 			@endif
 			
 			<b>Status:</b>{{$student->status['name']}}
-		</div>
-		
-	</div>
-	<div class="row">
-		<div class="col-md-12">
+
 			<div class="subjects">
 		<h1>Results</h1>
 		<h3 style="color:#069">If your result is not listed. Report to your coordinator</h3>
@@ -97,5 +115,29 @@
 		</table>
 		</div>	
 		</div>
+		<div class="col-md-2">
+		<img src="{{$student->photo?asset('photo/'.$student->photo):'/img/user.jpg'}}" height="200" width="150">
+		<hr>
+		<h2>Documents</h2>
+			<div class="document-images">
+				<ul>
+					@foreach($student->documents as $document)
+						<li>
+							<a href="{{url('documents/'.$document->file_name)}}" data-lightbox="roadtrip" data-title="{{$document->doc_name}}">
+								<img src="{{ url('documents/thumbs/'.$document->file_name) }}">
+							</a>
+						</li>
+					@endforeach
+				</ul>
+			</div>
+		</div>
 	</div>
+
+@stop
+
+@section('scripts')
+
+	<script src="/js/lightbox.min.js"></script>
+	<script src="/js/app.js"></script>
+	
 @stop

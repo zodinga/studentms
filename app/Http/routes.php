@@ -226,10 +226,10 @@ Route::group(['middlewareGroups' => ['web']], function () {
 	Route::put('documents/update/{id}',['as'=>'documents.update','uses'=>'DocumentController@update']);
 	Route::post('documents/save','DocumentController@saveDocument');
 
-	Route::get('documents/destroy/{id}',['uses' => 'DocumentController@destroy','as'=>'documents.destroy']);
+	Route::get('documents/destroy/{id}',['uses' => 'DocumentController@destroy','as'=>'documents.destroy','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
 	Route::post('documents/upload',['uses'=>'DocumentController@documentUpload','as'=>'documents.upload']);
 
-	Route::get('documents/delete/{id}','DocumentController@deleteDocument');
+	//Route::get('documents/delete/{id}','DocumentController@deleteDocument');
 	//End Documents
 
 });

@@ -29,8 +29,8 @@
 @stop
 @section('content')
 	<div class="row">
-		<div class="col-md-12">
-			<a href="{{ URL::previous() }}" class="btn btn-primary">Back</a>
+		<div class="col-md-2">
+			<a href="{{ URL::previous() }}" class="btn btn-primary btn-block">Back</a>
 		</div>
 	</div>
 	<div class="row">

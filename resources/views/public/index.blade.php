@@ -30,14 +30,17 @@
 			@foreach($students as $student)
 				<tr>
 					<td>{{$student->id}}</td>
-					<td><img src="{{$student->photo?asset('images/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="33" width="28"></td>
+					<td><img src="{{$student->photo?asset('photo/'.$student->photo):'/img/user.jpg'}}" alt="..." class="img-rounded" height="33" width="28"></td>
 					<td>{{$student->name}}</td>
 					<td>{{$student->phone}}</td>
 					<td>{{$student->course->name}}</td>
 					<td>{{$student->batch}}</td>
 					<td>{{$student->doj}}</td>
 					<td>{{date('M j, Y',strtotime($student->created_at))}}</td>
-					<td><a href="{{route('public.single',$student->id)}} " class="btn btn-primary">Read More</a></td>
+					<td>
+						<a href="{{route('public.single',$student->id)}} " class="btn btn-primary">Read More</a>
+						<a href="{{route('documents.show',$student->id)}}" class="btn btn-info">{{ $student->documents()->count() }} Docs</a>
+					</td>
 				</tr>
 			@endforeach
 			</tbody>

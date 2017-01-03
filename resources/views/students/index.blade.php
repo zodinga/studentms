@@ -57,7 +57,6 @@
 						<a href="{{route('students.show',$student->id)}}" class="btn btn-info">View</a>
 						<a href="{{route('students.edit',$student->id)}}" class="btn btn-warning">Edit</a>
 						<a href="{{route('documents.show',$student->id)}}" class="btn btn-primary">{{ $student->documents()->count() }} Docs</a>
-
 					</td>
 				</tr>
 				@endforeach

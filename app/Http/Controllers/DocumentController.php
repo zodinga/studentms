@@ -56,6 +56,11 @@ class DocumentController extends Controller
     	$document=Document::find($request->id);
 
     	if($request->hasFile('file')){
+            //delete old document
+            unlink(public_path('documents\\'.$document->file_name)); 
+            unlink(public_path('documents\\thumbs\\'.$document->file_name));
+            //end delete
+
     		$file=$request->file('file');
 	        $filename=$request->input('student_id').'_'.uniqid().'_'.$file->getClientOriginalName();
 
