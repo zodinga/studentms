@@ -19,12 +19,17 @@
 	<div class="col-md-12">
 
 	{!! Form::model($student,['route'=>['students.updateSubject',$student->id],'method'=>'PUT']) !!}
-		
+		{{Form::label('editsubject','Select Subjects:')}}
 		{{Form::select('subjects[]',$subjects,null,['class'=>'select2-multi form-control','multiple'=>'multiple'])}}
 		
-		{{Form::submit('Save Changes',['class'=>'btn btn-success btn-block btn-h1-spacing'])}}
+		{{Form::submit('Save Changes',['class'=>'btn btn-success btn-h1-spacing'])}}
 
 	{!!Form::close()!!}
+	</div>
+	
+	<div class="col-md-6">
+	<h1>OR</h1>
+		<a href="{{route('students.addAll',$student->id)}}" class="btn btn-danger btn-h1-spacing">Automatic Add All Subjects</a>
 	</div>
 </div>
 

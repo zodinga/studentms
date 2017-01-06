@@ -54,7 +54,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="text-center">
-				{!! $students->links() !!}
+				{!! $students->appends(Request::except('page'))->links() !!}
 			</div>
 		</div>
 	</div>

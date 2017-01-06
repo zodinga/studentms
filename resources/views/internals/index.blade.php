@@ -29,6 +29,7 @@
 					<th>Course</th>	
 					<th>Batch</th>
 					<th>Year</th>
+					<th>Subjects</th>
 					<th>Action</th>
 				</thead>
 				<tbody>
@@ -40,9 +41,36 @@
 					<td>{{$student->course->name}}</td>
 					<td>{{$student->batch}}</td>
 					<td>{{$student->doj}}</td>
+					<td>{{$student->subjects()->count()}}</td>
 					<td>
 						<a href="{{route('internals.show',$student->id)}}" class="btn btn-info btn-sm">Internal</a>
 						<a href="{{route('students.show',$student->id)}}" class="btn btn-primary btn-sm">View</a>
+					@if($student->subjects()->count()==0)
+						<!-- Delete Modal -->
+                      <div class="modal fade" id="Add<?php echo $student->id; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h2>Confirmation</h2>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure to Add All Subjects to ... Mr {{$student->name}}?
+                            </div>
+                            <div class="modal-footer">
+                            	
+	                            <div class="col-md-4 ">
+	                      			<a href="{{route('students.addAll',$student->id)}}" class="btn btn-danger">Automatic Add All Subjects</a>
+						  		</div>
+						  		<div class="col-md-4 col-md-offset-4">
+                              		<button type="button" class="btn btn-warning btn-block" data-dismiss="modal">No</button>
+                              	</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a href="#Add{{$student->id}}"  role="button" class="btn btn-danger" data-toggle="modal" title="Delete Student">Add All</a>
+                      <!-- End Delete Modal -->
+                    @endif
 					</td>
 				</tr>
 				@endforeach

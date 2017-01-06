@@ -73,6 +73,7 @@
 		
 		<div class="subjects">
 		<h3>Subjects Taken:</h3>
+			
 			@foreach($student->subjects as $subject)
 				@if($subject->semester==1)
 				<span class="label label-primary">{{$subject->semester}} | {{$subject->name}}</span>
@@ -118,9 +119,32 @@
 					{!! Html::linkRoute('students.edit','Edit',[$student->id],['class'=>'btn btn-primary btn-block']) !!}
 				</div>
 				<div class="col-sm-6">
-				{!! Form::open(['route'=>['students.destroy',$student->id],'method'=>'delete']) !!}
-					{{Form::submit('Delete',['class'=>'btn btn-danger btn-block'])}}
-				{!! Form::close() !!}
+					<!-- Delete Modal -->
+                      <div class="modal fade" id="Delete<?php echo $student->id; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h2>Delete Confirmation</h2>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure to Delete... Mr {{$student->name}}?
+                            </div>
+                            <div class="modal-footer">
+                            	
+	                            <div class="col-md-4 ">
+	                      			{!! Form::open(['route'=>['students.destroy',$student->id],'method'=>'delete']) !!}
+										{{Form::submit('Delete',['class'=>'btn btn-danger btn-block'])}}
+						  			{!! Form::close() !!}
+						  		</div>
+						  		<div class="col-md-4 col-md-offset-4">
+                              		<button type="button" class="btn btn-warning btn-block" data-dismiss="modal">No</button>
+                              	</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a href="#Delete{{$student->id}}"  role="button" class="btn btn-danger btn-block" data-toggle="modal" title="Delete Student">Delete</a>
+                      <!-- End Delete Modal -->
 				</div>
 			</div>
 			<div class="row">

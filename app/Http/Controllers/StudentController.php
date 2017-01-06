@@ -45,26 +45,45 @@ class StudentController extends Controller
 
     public function syncNew()
     {
-        $students=Student::all();
+        $students=Student::where('doj','>=',2014)->get();
 
         foreach($students as $student)
         {
-            $subjects=Subject::whereCourse_id($student->course_id)->get();
-            foreach($subjects as $subject)
-            {
-                $xx=Student_subject::where('student_id',$student->id)->where('subject_id',$subject->id)->get();
-                
-                if($xx->count()==0)
+            //finding subject revision year
+            $current_rev=Subject::where('course_id',$student->course_id)->groupby('revised_year')->distinct()->orderBy('revised_year', 'desc')->first();
+             
+             if($current_rev->revised_year > $student->doj)
+             {
+                echo "old student";
+
+                $nearest_lower=Subject::where('course_id',$student->course_id)->where('revised_year','<=',$student->doj)->distinct()->orderBy('revised_year','desc')->first();
+                if(isset($nearest_lower))
                 {
-                    $student_subject=new Student_subject;
-                    $student_subject->student_id=$student->id;
-                    $student_subject->subject_id=$subject->id;
-
-                    $student_subject->timestamps=false;
-                    $student_subject->save();
+                    $subjects=Subject::where('course_id','=',$student->course_id)->where('revised_year',$nearest_lower->revised_year)
+                                                                            ->get();   
+                    
                 }
+                else
+                {
+                    Session::flash('success','Successfully saved!');
+                    //redirect to another page
+                    return redirect()->route('students.show',$student->id);
+                }
+             }
+            else
+            {
 
+                $subjects=Subject::where('course_id','=',$student->course_id)->where('revised_year',$current_rev->revised_year)
+                                                                            //->where('old_course','=',false)
+                                                                            //->orwhere('old_course',null)
+                                                                            ->get();
             }
+            //saving subjects lists to student
+            foreach($subjects as $subject)
+                    {
+                        $subject->students()->attach($student);
+                    }
+            //end of saving subjects
         }
     }
     /**
@@ -189,48 +208,45 @@ class StudentController extends Controller
 
         $student->save();
 
-         //finding subject revision year
-        
-        $current_rev=Subject::where('course_id',$request->course_id)->groupby('revised_year')->distinct()->orderBy('revised_year', 'desc')->first();
-         
-         if($current_rev->revised_year > $request->doj)
-         {
-            echo "old student";
+        //Test if subjects will be added while creating students 
+        if($request->add_subjects==1)
+        {
+            //finding subject revision year
+            $current_rev=Subject::where('course_id',$request->course_id)->groupby('revised_year')->distinct()->orderBy('revised_year', 'desc')->first();
+             
+             if($current_rev->revised_year > $request->doj)
+             {
+                echo "old student";
 
-            $nearest_lower=Subject::where('course_id',$request->course_id)->where('revised_year','<=',$request->doj)->distinct()->orderBy('revised_year','desc')->first();
-            if(isset($nearest_lower))
-            {
-                $subjects=Subject::where('course_id','=',$request->course_id)->where('revised_year',$nearest_lower->revised_year)
-                                                                        ->orderby('id')
-                                                                        ->get();   
-                
-            }
+                $nearest_lower=Subject::where('course_id',$request->course_id)->where('revised_year','<=',$request->doj)->distinct()->orderBy('revised_year','desc')->first();
+                if(isset($nearest_lower))
+                {
+                    $subjects=Subject::where('course_id','=',$request->course_id)->where('revised_year',$nearest_lower->revised_year)
+                                                                            ->get();   
+                    
+                }
+                else
+                {
+                    Session::flash('success','Successfully saved!');
+                    //redirect to another page
+                    return redirect()->route('students.show',$student->id);
+                }
+             }
             else
             {
-                Session::flash('success','Successfully saved!');
-                //redirect to another page
-                return redirect()->route('students.show',$student->id);
+
+                $subjects=Subject::where('course_id','=',$request->course_id)->where('revised_year',$current_rev->revised_year)
+                                                                            //->where('old_course','=',false)
+                                                                            //->orwhere('old_course',null)
+                                                                            ->get();
             }
-         }
-        else
-        {
-
-            $subjects=Subject::where('course_id','=',$request->course_id)->where('old_course','=',false)
-                                                                        ->orwhere('old_course',null)
-                                                                        ->orwhere('revised_year',$current_rev->revised_year)
-                                                                        ->orderby('id')
-                                                                        ->get();
-
+            //saving subjects lists to student
+            foreach($subjects as $subject)
+                    {
+                        $subject->students()->attach($student);
+                    }
+            //end of saving subjects
         }
-        //saving subjects lists to student
-        $i=0;
-
-        foreach($subjects as $subject)
-            $ss[$i++]=$subject->id;
-        //dd($ss);
-        $student->subjects()->sync($ss,false);
-        //end of saving subjects
-
         Session::flash('success','Successfully saved!');
 
         //redirect to another page
@@ -454,5 +470,49 @@ class StudentController extends Controller
         return redirect()->back();
     }
 
+    public function addAll($id){
 
+        $student=Student::find($id);
+        //finding subject revision year
+            $current_rev=Subject::where('course_id',$student->course_id)->groupby('revised_year')->distinct()->orderBy('revised_year', 'desc')->first();
+             
+             if($current_rev->revised_year > $student->doj)
+             {
+                echo "old student";
+
+                $nearest_lower=Subject::where('course_id',$student->course_id)->where('revised_year','<=',$student->doj)->distinct()->orderBy('revised_year','desc')->first();
+                if(isset($nearest_lower))
+                {
+                    $subjects=Subject::where('course_id','=',$student->course_id)->where('revised_year',$nearest_lower->revised_year)
+                                                                            ->get();   
+                    
+                }
+                else
+                {
+                    Session::flash('success','Successfully saved!');
+                    //redirect to another page
+                    return redirect()->route('students.show',$student->id);
+                }
+             }
+            else
+            {
+
+                $subjects=Subject::where('course_id','=',$student->course_id)->where('revised_year',$current_rev->revised_year)
+                                                                            //->where('old_course','=',false)
+                                                                            //->orwhere('old_course',null)
+                                                                            ->get();
+            }
+            //saving subjects lists to student
+            foreach($subjects as $subject)
+                    {
+                        $subject->students()->attach($student);
+                    }
+            //end of saving subjects
+      
+        Session::flash('success','Subjects updated Successfully!!');
+
+        return redirect()->back();
+    }
 }
+
+

@@ -10,6 +10,16 @@
 			<h1>Create Student</h1>
 			<hr>
 			{!! Form::open(['route' => 'students.store','data-parsley-validate'=>'','files'=>true]) !!}
+
+			{{Form::label('add_subjects','Add Subjects To Student??')}}
+			{{Form::checkbox('add_subjects',1, false,['class'=>'form-control','autofocus'=>'autofocus'])}}
+
+				{{Form::label('course_id','Course:')}}
+			    {{Form::select('course_id', $courses ,null,['class'=>'form-control','required'=>'','placeholder' => 'Pick a course...'])}}
+
+				{{Form::label('doj','Year of Joining:')}}
+			    {{Form::text('doj',null,['class'=>'form-control','required'=>'','data-parsley-type'=>'digits','maxlength'=>'4'])}}
+
 			    {{Form::label('name','Name:')}}
 			    {{Form::text('name',null,['class'=>'form-control','required'=>'','maxlength'=>'50', 'autofocus'=>'autofocus'])}}
 
@@ -33,14 +43,6 @@
 
 			    {{Form::label('exam_roll_no','Exam RollNo:')}}
 			    {{Form::text('exam_roll_no',null,['class'=>'form-control','maxlength'=>'20'])}}
-
-			    {{Form::label('doj','Year of Joining:')}}
-			    {{Form::text('doj',null,['class'=>'form-control','required'=>'','data-parsley-type'=>'digits','maxlength'=>'4'])}}
-
-
-
-			    {{Form::label('course_id','Course:')}}
-			    {{Form::select('course_id', $courses ,null,['class'=>'form-control','required'=>'','placeholder' => 'Pick a course...'])}}
 				
 			    {{Form::label('batch','Batch:')}}
 			    {{Form::text('batch',null,['class'=>'form-control','data-parsley-type'=>'number'])}}

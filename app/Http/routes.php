@@ -78,6 +78,7 @@ Route::group(['middlewareGroups' => ['web']], function () {
 
 	Route::get('students/editSubject/{id}',['as'=>'students.editSubject','uses'=>'StudentController@editSubject','middleware'=>'roles','roles'=> ['Admin','Coordinator','Faculty','Reception']]);
 	Route::put('students/updateSubject/{id}',['uses'=>'StudentController@updateSubject', 'as'=>'students.updateSubject','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
+	Route::get('students/addAll/{id}',['uses'=>'StudentController@addAll', 'as'=>'students.addAll','middleware' => 'roles','roles' => ['Admin','Coordinator','Faculty','Reception']]);
 	//END STUDENT
 
 	//CATEGORIES

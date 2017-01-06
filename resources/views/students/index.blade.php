@@ -35,6 +35,7 @@
 					<th>Batch</th>
 					<th>Sem Register</th>
 					<th>Updated At</th>
+					<th>Subjects</th>
 					<th>Actions</th>
 				</thead>
 				<tbody>
@@ -53,10 +54,40 @@
 					@endforeach
 					</td>
 					<td>{{date_format($student->updated_at,'d/m/Y')}}</td>
+					<td>{{$student->subjects()->count()}}</td>
 					<td>
 						<a href="{{route('students.show',$student->id)}}" class="btn btn-info">View</a>
 						<a href="{{route('students.edit',$student->id)}}" class="btn btn-warning">Edit</a>
 						<a href="{{route('documents.show',$student->id)}}" class="btn btn-primary">{{ $student->documents()->count() }} Docs</a>
+					@if(Auth::check())
+
+						<!-- Delete Modal -->
+                      <div class="modal fade" id="Delete<?php echo $student->id; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h2>Delete Confirmation</h2>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure to Delete... Mr {{$student->name}}?
+                            </div>
+                            <div class="modal-footer">
+                            	
+	                            <div class="col-md-4 ">
+	                      			{!! Form::open(['route'=>['students.destroy',$student->id],'method'=>'delete']) !!}
+										{{Form::submit('Delete',['class'=>'btn btn-danger btn-block'])}}
+						  			{!! Form::close() !!}
+						  		</div>
+						  		<div class="col-md-4 col-md-offset-4">
+                              		<button type="button" class="btn btn-warning btn-block" data-dismiss="modal">No</button>
+                              	</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a href="#Delete{{$student->id}}"  role="button" class="btn btn-danger" data-toggle="modal" title="Delete Student">Delete</a>
+                      <!-- End Delete Modal -->
+					@endif
 					</td>
 				</tr>
 				@endforeach
